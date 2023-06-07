@@ -1,0 +1,41 @@
+﻿@model NBD.Models.ComputerListModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Computer list:</h2>
+@using (Html.BeginForm())
+{
+    <label for="ComputerName">Search by computer name:</label>
+
+    <input type="text" name="ComputerName" id="ComputerName" value="@Model.Filter.ComputerName" />
+
+    <label for="Year">Search by year:</label>
+
+    <input type="text" name="Year" id="Year" value="@Model.Filter.Year" />
+
+    <input type="submit" value="Search" />
+}
+<p>
+    @Html.ActionLink("Add", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>Model</th>
+        <th>Year</th>
+        <th></th>
+    </tr>
+    @foreach (var computer in Model.Computers)
+    {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => computer.Name)</td>
+            <td>@Html.DisplayFor(modelItem => computer.Year)</td>
+            <td>
+                @Html.ActionLink("Change", "Edit", new { id = computer.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = computer.Id }) |
+                @Html.ActionLink("Add image", "AttachImage", new { id = computer.Id })
+            </td>
+        </tr>
+    }
+</table>
